@@ -18,14 +18,14 @@
 
             <div class="col-md-3 col-md-push-1">
                 <h4>Links</h4>
-                <ul class="fh5co-footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Work</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">About us</a></li>
-                </ul>
+                <?php wp_nav_menu([
+                    'theme_location' => 'footer-menu',
+                    'container' => 'ul',
+                    'menu_class' => 'fh5co-footer-links'
+                ]) ?>
             </div>
+
+
 
             <div class="col-md-3">
                 <h4>Contact Information</h4>

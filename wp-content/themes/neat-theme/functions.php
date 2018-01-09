@@ -45,7 +45,7 @@ if ( ! function_exists( 'neat_theme_setup' ) ) :
 		// This theme uses wp_nav_menu() in one location.
         register_nav_menus( [
             'header-menu' => 'Main Top Location',
-            'logo-menu' => 'Logo Location',
+            'footer-menu' => 'Footer Location'
         ] );
 
 		/*
