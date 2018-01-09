@@ -173,3 +173,7 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+require get_template_directory() . '/inc/custom-post-types.php';
+
+add_image_size("hero-image-size", 1500, 1000, true);
+
