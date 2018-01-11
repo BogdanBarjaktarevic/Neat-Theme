@@ -9,16 +9,15 @@ get_header();
     <aside id="fh5co-hero">
         <div class="flexslider">
             <ul class="slides">
-                <li style="background-image: url(images/img_bg_3.jpg);">
+                <?php $slika = get_field('hero_image'); ?>
+                <li style="background-image: url(<?=$slika['sizes']['hero-image-size']?>);">
                     <div class="overlay-gradient"></div>
-                    <div class="container-fluids">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-3 slider-text slider-text-bg">
-                                <div class="slider-text-inner text-center">
-                                    <h1>Blog</h1>
-                                    <h2>
-                                        A curated list of case studies and stories from myself and other authors, all around the internet.
-                                    </h2>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 slider-text slider-text-bg">
+                            <div class="slider-text-inner text-center">
+                                <h1><?= get_field('title_text'); ?></h1>
+                                <?php $link = get_field('link'); ?>
+                                <h2><?= get_field('description_text');?></h2>
                                 </div>
                             </div>
                         </div>
