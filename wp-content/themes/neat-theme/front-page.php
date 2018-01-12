@@ -9,75 +9,44 @@ get_header();
     <aside id="fh5co-hero">
         <div class="flexslider">
             <ul class="slides">
-                <li style="background-image: url(<?= get_template_directory_uri() . "/images/img_bg_1.jpg" ?>);">
-                    <div class="overlay-gradient"></div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 slider-text">
-                                <div class="slider-text-inner">
-                                    <h1>Not Every Project Needs To Be Perfect</h1>
-                                    <h2>But most of <a href="work.html" target="_blank">my projects</a> are perfect.</h2>
-                                    <p>
-                                        <a class="btn btn-primary btn-demo" href="contact.html"></i> Request a Demo</a>
-                                        <a class="btn btn-primary btn-learn" href="about.html">Learn More</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li style="background-image: url(<?= get_template_directory_uri() . "/images/img_bg_2.jpg" ?>);">
-                    <div class="overlay-gradient"></div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 slider-text">
-                                <div class="slider-text-inner">
-                                    <h1>WordPress Theme For People Who Tell Stories</h1>
-                                    <h2>But most of <a href="work.html" target="_blank">my projects</a> are perfect.</h2>
-                                    <p>
-                                        <a class="btn btn-primary btn-demo" href="contact.html"></i> Request a Demo</a>
-                                        <a class="btn btn-primary btn-learn" href="about.html">Learn More</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li style="background-image: url(<?= get_template_directory_uri() . "/images/img_bg_3.jpg" ?>);">
-                    <div class="overlay-gradient"></div>
-                    <div class="container-fluids">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 slider-text">
-                                <div class="slider-text-inner">
-                                    <h1>What Would You Like To Learn?</h1>
-                                    <h2>But most of <a href="work.html" target="_blank">my projects</a> are perfect.</h2>
-                                    <p>
-                                        <a class="btn btn-primary btn-demo" href="contact.html"></i> Request a Demo</a>
-                                        <a class="btn btn-primary btn-learn" href="about.html">Learn More</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li style="background-image: url(<?= get_template_directory_uri() .  "/images/img_bg_4.jpg" ?>);">
+                <?php
 
+                // check if the repeater field has rows of data
+                if( have_rows('slides') ):
+
+                // loop through the rows of data
+                while ( have_rows('slides') ) : the_row();
+
+                $sliderPicture = get_sub_field('slider_image');
+
+                ?>
+
+
+
+
+                <li style="background-image: url(<?= $sliderPicture['sizes']['slider-image-size'] ?>);">
                     <div class="overlay-gradient"></div>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6 col-md-offset-3 col-md-pull-3 slider-text">
                                 <div class="slider-text-inner">
-                                    <h1>I Love to Tell My Story</h1>
-                                    <h2>But most of <a href="work.html" target="_blank">my projects</a> are perfect.</h2>
+                                    <h1><?= get_sub_field('slider_title'); ?></h1>
+                                    <?php $sliderLink = get_sub_field('slider_link'); ?>
+                                    <h2><?= get_sub_field('slider_content'); ?></h2>
                                     <p>
-                                        <a class="btn btn-primary btn-demo" href="contact.html"></i> Request a Demo</a>
-                                        <a class="btn btn-primary btn-learn" href="about.html">Learn More</a>
+                                        <?php $sliderFirstButton = get_sub_field('first_button'); ?>
+                                        <?php $sliderSecondButton = get_sub_field('second_button'); ?>
+                                        <a class="btn btn-primary btn-demo" href="<?=$sliderFirstButton['url']?>"></i><?=$sliderFirstButton['title']?></a>
+                                        <a class="btn btn-primary btn-learn" href="<?=$sliderSecondButton['url']?>"><?=$sliderSecondButton['title']?></a>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </li>
+                <?php endwhile;
+                        endif;
+                ?>
             </ul>
         </div>
     </aside>
@@ -127,30 +96,34 @@ get_header();
             </div>
         </div>
         <div class="row">
+            <?php
+            $the_query = new WP_Query([
+                'post_type' => 'work_projects',
+                'orderby' => 'date',
+                'order' => DESC,
+                'posts_per_page' => 3
+            ]);
+            if ( $the_query->have_posts() ) :
+            while ( $the_query->have_posts() ) :
+            $the_query->the_post(); ?>
             <div class="col-md-4 text-center animate-box">
-                <a href="work-single.html" class="work"  style="background-image: url(images/portfolio-1.jpg);">
+                <?php $projectHomeImage = get_field('work_project_image'); ?>
+                <a href="<?php get_the_permalink(); ?>" class="work"  style="background-image: url(<?=$projectHomeImage['sizes']['large']?>);">
                     <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Illustration</span>
+                <h3><?= get_the_title(); ?></h3>
+                <?php
+                foreach((get_the_category()) as $category) :
+                    ?>
+                    <span><?= $category->cat_name ?></span>
+                <?php endforeach;?>
                     </div>
                 </a>
             </div>
-            <div class="col-md-4 text-center animate-box">
-                <a href="work-single.html" class="work" style="background-image: url(images/portfolio-2.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Brading</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4 text-center animate-box">
-                <a href="work-single.html" class="work" style="background-image: url(images/portfolio-3.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Illustration</span>
-                    </div>
-                </a>
-            </div>
+            <?php endwhile;
+                    endif;
+            // Restore original Post Data
+            wp_reset_postdata();
+            ?>
         </div>
     </div>
 
@@ -163,12 +136,18 @@ get_header();
     </div>
 
     <div id="fh5co-blog" class="blog-flex">
-        <div class="featured-blog" style="background-image: url(images/blog-1.jpg);">
+        <?php
+        $the_query = new WP_Query([
+            'post_type' => 'featured_post_type',
+        ]);
+        $the_query->the_post(); ?>
+        <?php $featuredPostImage = get_field('blogpost_image'); ?>
+        <div class="featured-blog" style="background-image: url(<?=$featuredPostImage['sizes']['blogpost-image-size']?>);">
             <div class="desc-t">
                 <div class="desc-tc">
-                    <span class="featured-head">Featured Posts</span>
-                    <h3><a href="blog-single.html">Top 20 Best WordPress Themes 2017 Multi Purpose and Creative Websites</a></h3>
-                    <span><a href="blog-single.html" class="read-button">Learn More</a></span>
+                    <span class="featured-head"><?=get_the_title();?></span>
+                    <h3><a href="<?php get_the_permalink(); ?>"><?= get_the_content(); ?></a></h3>
+                    <span><a href="<?php get_the_permalink(); ?>" class="read-button"><?= get_field('blogpost_button'); ?></a></span>
                 </div>
             </div>
         </div>
@@ -179,33 +158,35 @@ get_header();
                 </div>
             </div>
             <div class="row">
+                <?php
+                $the_query = new WP_Query([
+                    'post_type' => 'post',
+                    'orderby' => 'date',
+                    'order' => DESC,
+                    'posts_per_page' => 3
+                ]);
+                if ( $the_query->have_posts() ) :
+                while ( $the_query->have_posts() ) :
+                $the_query->the_post(); ?>
                 <div class="col-md-12 animate-box">
-                    <a href="blog-single.html" class="blog-post">
-                        <span class="img" style="background-image: url(images/blog-2.jpg);"></span>
+                    <a href="<?php get_the_permalink(); ?>" class="blog-post">
+                        <?php $slikaHomePage = get_field('blogpost_image'); ?>
+                        <span class="img" style="background-image: url(<?=$slikaHomePage['sizes']['large']?>);"></span>
                         <div class="desc">
-                            <h3>26 Best Education WordPress Themes 2017 You Need To See</h3>
-                            <span class="cat">Collection</span>
+                            <h3><?= get_the_title(); ?></h3>
+                            <?php
+                            foreach((get_the_category()) as $category) :
+                                ?>
+                                <span><?= $category->cat_name ?></span>
+                            <?php endforeach;?>
                         </div>
                     </a>
                 </div>
-                <div class="col-md-12 animate-box">
-                    <a href="blog-single.html" class="blog-post">
-                        <span class="img" style="background-image: url(images/blog-1.jpg);"></span>
-                        <div class="desc">
-                            <h3>16 Outstanding Photography WordPress Themes You Must See</h3>
-                            <span class="cat">Collection</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-12 animate-box">
-                    <a href="blog-single.html" class="blog-post">
-                        <span class="img" style="background-image: url(images/blog-3.jpg);"></span>
-                        <div class="desc">
-                            <h3>16 Outstanding Photography WordPress Themes You Must See</h3>
-                            <span class="cat">Collection</span>
-                        </div>
-                    </a>
-                </div>
+                <?php endwhile;
+                        endif;
+                // Restore original Post Data
+                wp_reset_postdata();
+                ?>
             </div>
         </div>
     </div>

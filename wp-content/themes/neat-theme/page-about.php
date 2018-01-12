@@ -3,6 +3,7 @@
  * Template Name: About Page Template
  */
 get_header();
+the_post();
 ?>
 
 <div class="container-wrap">
@@ -73,7 +74,7 @@ get_header();
             <div class="col-md-8 col-md-offset-2 text-center animate-box">
                 <div class="about-desc">
                     <h3><?= get_the_title(); ?></h3>
-                    </p><?= get_the_content(); ?></p>
+                    <p><?= get_the_content(); ?></p>
                 </div>
             </div>
             <?php

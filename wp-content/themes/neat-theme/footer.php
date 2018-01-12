@@ -8,11 +8,22 @@
             <div class="col-md-3 col-md-push-1">
                 <h4>Latest Posts</h4>
                 <ul class="fh5co-footer-links">
-                    <li><a href="#">Amazing Templates</a></li>
-                    <li><a href="#">100+ Free Download Templates</a></li>
-                    <li><a href="#">Neat is now available</a></li>
-                    <li><a href="#">Download 1000+ icons</a></li>
-                    <li><a href="#">Big Deal for this month of March, Join Us here</a></li>
+                    <?php
+                    $the_query = new WP_Query([
+                        'post_type' => 'post',
+                        'orderby' => 'date',
+                        'order' => DESC,
+                        'posts_per_page' => 5
+                    ]);
+                    if ( $the_query->have_posts() ) :
+                    while ( $the_query->have_posts() ) :
+                    $the_query->the_post(); ?>
+
+                    <li><a href="<?php get_the_permalink(); ?>"><?= get_the_title(); ?></a></li>
+
+                    <?php endwhile;
+                            endif;
+                    ?>
                 </ul>
             </div>
 

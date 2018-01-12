@@ -24,100 +24,40 @@ get_header();
                     </div>
                 </li>
             </ul>
-        </div>
     </aside>
     <div id="fh5co-blog">
         <div class="row">
+            <?php
+            $the_query = new WP_Query([
+                'post_type' => 'post',
+                'orderby' => 'date',
+                'order' => DESC
+            ]);
+            if ( $the_query->have_posts() ) :
+            while ( $the_query->have_posts() ) :
+            $the_query->the_post(); ?>
             <div class="col-md-4">
+                <?php $slika2 = get_field('blogpost_image'); ?>
                 <div class="fh5co-blog animate-box">
-                    <a href="blog-single.html" class="blog-bg" style="background-image: url(images/blog-1.jpg);"></a>
+                    <a href="<?php get_the_permalink(); ?>" class="blog-bg" style="background-image: url(<?=$slika2['sizes']['blogpost-image-size']?>);"></a>
                     <div class="blog-text">
-                        <span class="posted_on">Feb. 15th 2016</span>
-                        <h3><a href="blog-single.html">Photoshoot On The Street</a></h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                        <?php $datum = strtotime(get_the_date()); ?>
+                        <span class="posted_on"><?=date('M jS Y', $datum)?></span>
+                        <h3><a href="<?php get_the_permalink(); ?>"><?= get_the_title(); ?></a></h3>
+                        <p><?= get_the_content(); ?></p>
                         <ul class="stuff">
                             <!-- <li><i class="icon-heart3"></i>249</li> -->
                             <!-- <li><i class="icon-eye2"></i>1,308</li> -->
-                            <li><a href="blog-single.html">Read More<i class="icon-arrow-right22"></i></a></li>
+                            <li><a href="<?php get_the_permalink(); ?>"><?= get_field('blogpost_button')?><i class="icon-arrow-right22"></i></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="fh5co-blog animate-box">
-                    <a href="blog-single.html" class="blog-bg" style="background-image: url(images/blog-2.jpg);"></a>
-                    <div class="blog-text">
-                        <span class="posted_on">Feb. 15th 2016</span>
-                        <h3><a href="blog-single.html">Surfing at Philippines</a></h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                        <ul class="stuff">
-                            <!-- <li><i class="icon-heart3"></i>249</li> -->
-                            <!-- <li><i class="icon-eye2"></i>1,308</li> -->
-                            <li><a href="blog-single.html">Read More<i class="icon-arrow-right22"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="fh5co-blog animate-box">
-                    <a href="blog-single.html" class="blog-bg" style="background-image: url(images/blog-3.jpg);"></a>
-                    <div class="blog-text">
-                        <span class="posted_on">Feb. 15th 2016</span>
-                        <h3><a href="blog-single.html">Focus On Uderwater</a></h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                        <ul class="stuff">
-                            <!-- <li><i class="icon-heart3"></i>249</li> -->
-                            <!-- <li><i class="icon-eye2"></i>1,308</li> -->
-                            <li><a href="blog-single.html">Read More<i class="icon-arrow-right22"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="fh5co-blog animate-box">
-                    <a href="blog-single.html" class="blog-bg" style="background-image: url(images/blog-1.jpg);"></a>
-                    <div class="blog-text">
-                        <span class="posted_on">Feb. 15th 2016</span>
-                        <h3><a href="blog-single.html">Photoshoot On The Street</a></h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                        <ul class="stuff">
-                            <!-- <li><i class="icon-heart3"></i>249</li> -->
-                            <!-- <li><i class="icon-eye2"></i>1,308</li> -->
-                            <li><a href="blog-single.html">Read More<i class="icon-arrow-right22"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="fh5co-blog animate-box">
-                    <a href="blog-single.html" class="blog-bg" style="background-image: url(images/blog-2.jpg);"></a>
-                    <div class="blog-text">
-                        <span class="posted_on">Feb. 15th 2016</span>
-                        <h3><a href="blog-single.html">Surfing at Philippines</a></h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                        <ul class="stuff">
-                            <!-- <li><i class="icon-heart3"></i>249</li> -->
-                            <!-- <li><i class="icon-eye2"></i>1,308</li> -->
-                            <li><a href="blog-single.html">Read More<i class="icon-arrow-right22"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="fh5co-blog animate-box">
-                    <a href="blog-single.html" class="blog-bg" style="background-image: url(images/blog-3.jpg);"></a>
-                    <div class="blog-text">
-                        <span class="posted_on">Feb. 15th 2016</span>
-                        <h3><a href="blog-single.html">Focus On Uderwater</a></h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                        <ul class="stuff">
-                            <!-- <li><i class="icon-heart3"></i>249</li> -->
-                            <!-- <li><i class="icon-eye2"></i>1,308</li> -->
-                            <li><a href="blog-single.html">Read More<i class="icon-arrow-right22"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <?php endwhile;
+                    endif;
+            // Restore original Post Data
+            wp_reset_postdata();
+            ?>
         </div>
     </div>
 </div><!-- END container-wrap -->

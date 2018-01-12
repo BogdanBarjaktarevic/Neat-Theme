@@ -177,4 +177,6 @@ require get_template_directory() . '/inc/custom-post-types.php';
 
 add_image_size("hero-image-size", 1500, 1000, true);
 add_image_size("about-me-image-size", 1200, 1351, true);
+add_image_size("blogpost-image-size", 800, 530, true);
+add_image_size("slider-image-size", 1500, 927, true);
 
